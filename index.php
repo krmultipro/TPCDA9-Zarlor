@@ -80,6 +80,7 @@
                 <th>Milieu naturel</th>
                 <th>Nom observateur</th>
                 <th>Date d'observation</th>
+                <th>Action</th>
             </tr>
             </thead>
 
@@ -158,7 +159,14 @@
 //    // Recuperation de toutes les lignes
 //    $observations=$requete->fetchAll();
 
+    // Si on a clique sur btn supprimer
+    if(isset($_GET['delete'])){
+        $id=$_GET['delete']; // on recupere id dans url
 
+        $requete=$db->prepare("DELETE FROM observations where id_observation = :id");
+        $requete->bindParam(":id",$id,PDO::PARAM_INT); // lier la valeur $id à :id
+        $requete->execute();
+    }
 
     //boucle sur toutes lignes recupérées pour recuperer chaque observation
     foreach ($observations as $observation) {
