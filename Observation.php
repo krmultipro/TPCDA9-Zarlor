@@ -1,6 +1,6 @@
 <?php
 
-class Observation ($id, )
+class Observation
 {
     private $id;
 
@@ -18,7 +18,15 @@ class Observation ($id, )
 
     private $date_observation;
 
-    public function __construct(){
+    public function __construct($id, $nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation){
+    $this->id = $id;
+    $this->nom_commun = $nom_commun;
+    $this->nom_scientifique = $nom_scientifique;
+    $this->nb_individus = $nb_individus;
+    $this->zone_observation = $zone_observation;
+    $this->milieu_naturel = $milieu_naturel;
+    $this->nom_observateur = $nom_observateur;
+    $this->date_observation = $date_observation;
 
     }
 
