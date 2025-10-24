@@ -117,7 +117,7 @@ if(isset($_SESSION['observations'])){
         // Instanciation de la classe observation contenant les informations de l'observation
         $observation = new Observation($nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation);
 
-
+        $observation->insert($db);
 
         // ajoute dans le tableau de la session l'objet observation
         $_SESSION["observations"][] = $observation;

@@ -29,10 +29,21 @@ class Observation
 
     }
     public function insert($db) {
-        $sql="INSERT INTO observations (nom_commun, nom_scientifique, nb_individus, zone_observation, milieu_naturel, nom_observateur, date_observation ) 
+        $sql= "INSERT INTO observations (nom_commun, nom_scientifique, nb_individus, zone_observation, milieu_naturel, nom_observateur, date_observation ) 
               VALUES (:nom_commun, nom_scientifique, nb_individus, zone_observation, :milieu_naturel, :nom_observateur, :date_observation)";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':nom_commun', $this->nom_commun);
+        $stmt->bindParam(':nom_scientifique', $this->nom_scientifique);
+        $stmt->bindParam(':nb_individus', $this->nb_individus);
+        $stmt->bindParam(':zone_observation', $this->zone_observation);
+        $stmt->bindParam(':milieu_naturel', $this->milieu_naturel);
+        $stmt->bindParam(':nom_observateur', $this->nom_observateur);
+        $stmt->bindParam(':date_observation', $this->date_observation);
+
+        $stmt->execute();
+
     }
-        $
+
 
 
     /**
