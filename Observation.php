@@ -1,6 +1,6 @@
 <?php
 
-class Observartions
+class Observation ($id, )
 {
     private $id;
 
@@ -19,6 +19,7 @@ class Observartions
     private $date_observation;
 
     public function __construct(){
+
     }
 
     /**
