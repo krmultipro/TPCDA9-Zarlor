@@ -18,7 +18,17 @@ class Observation
 
     private $date_observation;
 
-    public function __construct( $nom_commun=null, $nom_scientifique=null, $nb_individus=null, $zone_observation=null, $milieu_naturel=null, $nom_observateur=null, $date_observation=null){
+
+
+    public function __construct(
+        $nom_commun=null,
+        $nom_scientifique=null,
+        $nb_individus=null,
+        $zone_observation=null,
+        $milieu_naturel=null,
+        $nom_observateur=null,
+        $date_observation=null)
+    {
     $this->nom_commun = $nom_commun;
     $this->nom_scientifique = $nom_scientifique;
     $this->nb_individus = $nb_individus;
@@ -26,7 +36,6 @@ class Observation
     $this->milieu_naturel = $milieu_naturel;
     $this->nom_observateur = $nom_observateur;
     $this->date_observation = $date_observation;
-
     }
     public function insert($db) {
         $sql= "INSERT INTO observations (nom_commun, nom_scientifique, nb_individus, zone_observation, milieu_naturel, nom_observateur, date_observation ) 

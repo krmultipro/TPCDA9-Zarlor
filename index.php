@@ -103,8 +103,6 @@
     }
 
 
-
-
     // recupere les infos apres la requete POST du formulaire
     if (isset($_POST["nom_commun"], $_POST["nom_scientifique"], $_POST["nb_individus"], $_POST["zone_observation"], $_POST["milieu_naturel"],$_POST["nom_observateur"],$_POST["date_observation"] )) {
         $nom_commun = $_POST["nom_commun"];
@@ -146,12 +144,17 @@
 
     // Requete qui permet de recuperer toutes les lignes de la table observations
     $requete=$db->query("select * from observations");
+    $observations=$requete->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,  "Observation");
+
+//    echo "<pre>";
+//    var_dump($observations[0]);
+//    echo "</pre>";
 
 //    //transforme chaque ligne en objet de la classe observation
-    $requete->setFetchMode(PDO::FETCH_CLASS,'Observation');
-
-    // Recuperation de toutes les lignes
-    $observations=$requete->fetchAll();
+//    $requete->setFetchMode(PDO::FETCH_CLASS,'Observation');
+//
+//    // Recuperation de toutes les lignes
+//    $observations=$requete->fetchAll();
 
     //boucle sur toutes lignes recupérées pour recuperer chaque observation
     foreach ($observations as $observation) {
