@@ -37,7 +37,7 @@ class Observation
     $this->nom_observateur = $nom_observateur;
     $this->date_observation = $date_observation;
     }
-    public function insert($db) {
+    public function insert(PDO $db) {
         $sql= "INSERT INTO observations (nom_commun, nom_scientifique, nb_individus, zone_observation, milieu_naturel, nom_observateur, date_observation ) 
               VALUES (:nom_commun, :nom_scientifique, :nb_individus, :zone_observation, :milieu_naturel, :nom_observateur, :date_observation)";
         $stmt = $db->prepare($sql);
@@ -51,6 +51,27 @@ class Observation
 
         $stmt->execute();
 
+    }
+    public function update($db, $id, $data) {
+    $requete = $db->prepare("UPDATE observations SET 
+            nom_commun = :nom_commun,
+            nom_scientifique = :nom_scientifique,
+            nb_individus = :nb_individus,
+            zone_observation = :zone_observation,
+            milieu_naturel = :milieu_naturel,
+            nom_observateur = :nom_observateur,
+            date_observation = :date_observation
+            WHERE id_observation = :id");
+
+    $requete->bindParam(':nom_commun', $this->nom_commun);
+    $requete->bindParam(':nom_scientifique', $this->nom_scientifique);
+    $requete->bindParam(':nb_individus', $this->nb_individus);
+    $requete->bindParam(':zone_observation', $this->zone_observation);
+    $requete->bindParam(':milieu_naturel', $this->milieu_naturel);
+    $requete->bindParam(':nom_observateur', $this->nom_observateur);
+    $requete->bindParam(':date_observation', $this->date_observation);
+    $requete->bindParam(':id', $id);
+    $requete->execute();
     }
 
 

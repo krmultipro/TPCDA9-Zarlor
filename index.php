@@ -170,6 +170,19 @@
         $requete->execute();
     }
 
+    $observationToEdit = null;
+    if (isset($_GET['edit'])) {
+        $id =$_GET['edit'];
+
+        $requete=$db->prepare("SELECT * FROM observations where id_observation = :id");
+        $requete->bindParam(":id",$id,PDO::PARAM_INT);
+        $requete->execute();
+
+        $observationToEdit = $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+
     //boucle sur toutes lignes recupérées pour recuperer chaque observation
     foreach ($observations as $observation) {
 
