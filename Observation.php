@@ -28,6 +28,12 @@ class Observation
     $this->date_observation = $date_observation;
 
     }
+    public function insert($db) {
+        $sql="INSERT INTO observations (nom_commun, nom_scientifique, nb_individus, zone_observation, milieu_naturel, nom_observateur, date_observation ) 
+              VALUES (:nom_commun, nom_scientifique, nb_individus, zone_observation, :milieu_naturel, :nom_observateur, :date_observation)";
+    }
+        $
+
 
     /**
      * @return mixed
