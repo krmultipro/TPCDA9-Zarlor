@@ -158,6 +158,8 @@
 //    // Recuperation de toutes les lignes
 //    $observations=$requete->fetchAll();
 
+
+
     //boucle sur toutes lignes recupérées pour recuperer chaque observation
     foreach ($observations as $observation) {
 
@@ -170,6 +172,13 @@
     <td>".$observation->getMilieuNaturel()."</td>
     <td>".$observation->getNomObservateur()."</td>
     <td>".$observation->getDateObservation()."</td>
+    <td> 
+      <a href='index.php?delete=".$observation->getIdObservation()."' 
+           class='btn btn-danger btn-sm'
+           onclick='return confirm(\"Voulez-vous vraiment supprimer cette observation ?\")'>
+           Supprimer
+        </a>
+    </td>
 </tr>";
     }
     ?>
