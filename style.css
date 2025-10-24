@@ -1,0 +1,40 @@
+
+body {
+    background-color: #f3f8f4;
+}
+
+h1 {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.navbar {
+    background-color: #388e3c !important;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+}
+
+.card {
+    border: 1px solid #c8e6c9;
+}
+
+.btn-primary {
+    background-color: #43a047;
+    border-color: #388e3c;
+}
+
+.btn-primary:hover {
+    background-color: #2e7d32;
+    border-color: #1b5e20;
+}
+
+table.dataTable thead {
+    background-color: #a5d6a7;
+}
+
+table.dataTable tbody tr:hover {
+    background-color: #e8f5e9;
+}
