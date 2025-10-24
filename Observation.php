@@ -18,8 +18,7 @@ class Observation
 
     private $date_observation;
 
-    public function __construct($id, $nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation){
-    $this->id = $id;
+    public function __construct( $nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation){
     $this->nom_commun = $nom_commun;
     $this->nom_scientifique = $nom_scientifique;
     $this->nb_individus = $nb_individus;

@@ -104,12 +104,13 @@ if(isset($_SESSION['observations'])){
     if (isset($_POST["nom_commun"], $_POST["nom_scientifique"], $_POST["nb_individus"], $_POST["zone_observation"], $_POST["milieu_naturel"],$_POST["nom_observateur"],$_POST["date_observation"] )) {
         $nom_commun = $_POST["nom_commun"];
         $nom_scientifique = $_POST["nom_scientifique"];
+        $nb_individus = $_POST["nb_individus"];
         $zone_observation = $_POST["zone_observation"];
         $milieu_naturel = $_POST["milieu_naturel"];
         $nom_observateur = $_POST["nom_observateur"];
         $date_observation = $_POST["date_observation"];
 
-        $observation = new Observation($nom_commun, $nom_scientifique, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation);
+        $observation = new Observation($nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation);
 
         // ajoute dans le tableau de la session
         $_SESSION["observations"][] = $observation;
@@ -150,6 +151,7 @@ if(isset($_SESSION['observations'])){
     <td>".$observation->getId()."</td> 
     <td>".$observation->getNomCommun()."</td> 
     <td>".$observation->getNomScientifique()."</td> 
+    <td>".$observation->getNbIndividus()."</td>
     <td>".$observation->getZoneObservation()."</td> 
     <td>".$observation->getMilieuNaturel()."</td>
     <td>".$observation->getNomObservateur()."</td>
