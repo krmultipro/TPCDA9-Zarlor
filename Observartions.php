@@ -17,4 +17,8 @@ class Observartions
     private $nom_observateur;
 
     private $date_observation;
+
+    public function __construct(){
+
+    }
 }
