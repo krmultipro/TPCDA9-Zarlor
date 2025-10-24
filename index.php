@@ -147,8 +147,8 @@
     // Requete qui permet de recuperer toutes les lignes de la table observations
     $requete=$db->query("select * from observations");
 
-    //transforme chaque ligne en objet de la classe observation
-//    $requete->setFetchMode(PDO::FETCH_ASSOC,'Observation');
+//    //transforme chaque ligne en objet de la classe observation
+    $requete->setFetchMode(PDO::FETCH_CLASS,'Observation');
 
     // Recuperation de toutes les lignes
     $observations=$requete->fetchAll();
