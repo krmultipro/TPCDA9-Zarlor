@@ -19,6 +19,135 @@ class Observartions
     private $date_observation;
 
     public function __construct(){
-
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomCommun()
+    {
+        return $this->nom_commun;
+    }
+
+    /**
+     * @param mixed $nom_commun
+     */
+    public function setNomCommun($nom_commun)
+    {
+        $this->nom_commun = $nom_commun;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomScientifique()
+    {
+        return $this->nom_scientifique;
+    }
+
+    /**
+     * @param mixed $nom_scientifique
+     */
+    public function setNomScientifique($nom_scientifique)
+    {
+        $this->nom_scientifique = $nom_scientifique;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbIndividus()
+    {
+        return $this->nb_individus;
+    }
+
+    /**
+     * @param mixed $nb_individus
+     */
+    public function setNbIndividus($nb_individus)
+    {
+        $this->nb_individus = $nb_individus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZoneObservation()
+    {
+        return $this->zone_observation;
+    }
+
+    /**
+     * @param mixed $zone_observation
+     */
+    public function setZoneObservation($zone_observation)
+    {
+        $this->zone_observation = $zone_observation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMilieuNaturel()
+    {
+        return $this->milieu_naturel;
+    }
+
+    /**
+     * @param mixed $milieu_naturel
+     */
+    public function setMilieuNaturel($milieu_naturel)
+    {
+        $this->milieu_naturel = $milieu_naturel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomObservateur()
+    {
+        return $this->nom_observateur;
+    }
+
+    /**
+     * @param mixed $nom_observateur
+     */
+    public function setNomObservateur($nom_observateur)
+    {
+        $this->nom_observateur = $nom_observateur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateObservation()
+    {
+        return $this->date_observation;
+    }
+
+    /**
+     * @param mixed $date_observation
+     */
+    public function setDateObservation($date_observation)
+    {
+        $this->date_observation = $date_observation;
+    }
+
+
 }
