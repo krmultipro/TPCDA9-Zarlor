@@ -77,8 +77,14 @@ if (isset($_POST['id_observation'])) {
     // On appelle la methode update
     if($observation->update($db, $id)){
         echo "<div class='alert alert-success text-center'>✅ Observation mise à jour avec succès</div>";
+        header("Location: index.php?updated=1");
+        exit;
+
     }else {
         echo "<div class='alert alert-danger text-center'>❌ Erreur lors de la mise à jour</div>";
+        header("Location: index.php?updated=1");
+        exit;
+
     }
 
 }
