@@ -52,7 +52,7 @@ class Observation
         $stmt->execute();
 
     }
-    public function update($db, $id, $data) {
+    public function update($db, $id) {
     $requete = $db->prepare("UPDATE observations SET 
             nom_commun = :nom_commun,
             nom_scientifique = :nom_scientifique,
@@ -71,7 +71,17 @@ class Observation
     $requete->bindParam(':nom_observateur', $this->nom_observateur);
     $requete->bindParam(':date_observation', $this->date_observation);
     $requete->bindParam(':id', $id);
-    $requete->execute();
+
+    return $requete->execute();
+
+    ;
+    }
+
+    public static function find(PDO $db, $id){
+        $requete = $db->prepare("SELECT * FROM observations WHERE id_observation = :id");
+        $requete->bindParam(':id', $id, PDO::PARAM_INT);
+        $requete->execute();
+        $result = $requete->fetch(PDO::FETCH_ASSOC);
     }
 
 

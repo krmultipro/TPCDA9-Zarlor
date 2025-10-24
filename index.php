@@ -113,7 +113,7 @@
     }
 
 
-    // recupere les infos apres la requete POST du formulaire
+    // recupere les infos apres la requete POST du formulaire, clique envoyer
     if (isset(
             $_POST["nom_commun"],
             $_POST["nom_scientifique"],
@@ -170,15 +170,35 @@
         $requete->execute();
     }
 
-    $observationToEdit = null;
+    $observationToEdit = null; //initialisation de l'edit
+    //clique sur modifier
     if (isset($_GET['edit'])) {
-        $id =$_GET['edit'];
+        $observationToEdit = Observation::find($db, $_GET['edit']);//appelle la methode statique find et lui passe la connexion db et l'id
+    }
 
-        $requete=$db->prepare("SELECT * FROM observations where id_observation = :id");
-        $requete->bindParam(":id",$id,PDO::PARAM_INT);
-        $requete->execute();
+    // Si formulaire est en mode mise a jour
+    if (isset($_POST['id_observation'])) {
 
-        $observationToEdit = $requete->fetch(PDO::FETCH_ASSOC);
+        $id = $_POST['id_observation'];
+
+        $nom_commun = $_POST['nom_commun'];
+        $nom_scientifique = $_POST['nom_scientifique'];
+        $nb_individus = $_POST['nb_individus'];
+        $zone_observation = $_POST['zone_observation'];
+        $milieu_naturel = $_POST['milieu_naturel'];
+        $nom_observateur = $_POST['nom_observateur'];
+        $date_observation = $_POST['date_observation'];
+
+        //On crée un nouvel objet observation avec les nouvelles valeurs
+        $observation = new Observation($nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation);
+
+        // On appelle la methode update
+        if($observation->update($db, $id)){
+            echo "<div class='alert alert-success text-center'>✅ Observation mise à jour avec succès</div>";
+        }else {
+            echo "<div class='alert alert-danger text-center'>❌ Erreur lors de la mise à jour</div>";
+        }
+
     }
 
 
