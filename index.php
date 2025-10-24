@@ -84,46 +84,101 @@
             </thead>
 
             <tbody>
-            <?php
-            require('Observation.php');
-            $user="root";
-            $pass="";
-            $dbname="zarlor";
-            $host="localhost";
-            $db=new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
-            if(isset($_SESSION['observations'])){
-                $observations = $_SESSION['observations'];
-            }else {
-                $observations=array();
-                $_SESSION['observations']=$observations;
-            }
-            if (isset($_POST["nom_commun"], $_POST["nom_scientifique"], $_POST["nb_individus"], $_POST["zone_observation"], $_POST["milieu_naturel"],$_POST["nom_observateur"],$_POST["date_observation"] )) {
-                $nom_commun = $_POST["nom_commun"];
-                $nom_scientifique = $_POST["nom_scientifique"];
-                $nb_individus = $_POST["nb_individus"];
-                $zone_observation = $_POST["zone_observation"];
-                $milieu_naturel = $_POST["milieu_naturel"];
-                $nom_observateur = $_POST["nom_observateur"];
-                $date_observation = $_POST["date_observation"];
-                $observation = new Observation($nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation);
-                $observation->insert($db);
-                $_SESSION["observations"][] = $observation;
-            }
-            $requete=$db->query("select * from observations");
-            $observations=$requete->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,  "Observation");
-            foreach ($observations as $observation) {
-                echo "<tr>
-                        <td>".$observation->getIdObservation()."</td> 
-                        <td>".$observation->getNomCommun()."</td> 
-                        <td>".$observation->getNomScientifique()."</td> 
-                        <td>".$observation->getNbIndividus()."</td>
-                        <td>".$observation->getZoneObservation()."</td> 
-                        <td>".$observation->getMilieuNaturel()."</td>
-                        <td>".$observation->getNomObservateur()."</td>
-                        <td>".$observation->getDateObservation()."</td>
-                    </tr>";
-            }
-            ?>
+
+
+    <?php
+    // Chargement du fichier classe observation
+    require('Observation.php');
+
+    // Information de connexion pour la base de données
+    $user="root";
+    $pass="";
+    $dbname="zarlor";
+    $host="localhost";
+
+    // Instanciation de la classe PDO pour la connexion avec la base de données, db devient l'objet PDO qui represente la connexion
+    $db=new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
+
+    // Lancement de la session pour recuperer les données existantes si session existe
+    //session_start();
+
+    if(isset($_SESSION['observations'])){
+        $observations = $_SESSION['observations'];
+    }else {
+        $observations=array();
+        $_SESSION['observations']=$observations;
+    }
+
+
+    // recupere les infos apres la requete POST du formulaire
+    if (isset($_POST["nom_commun"], $_POST["nom_scientifique"], $_POST["nb_individus"], $_POST["zone_observation"], $_POST["milieu_naturel"],$_POST["nom_observateur"],$_POST["date_observation"] )) {
+        $nom_commun = $_POST["nom_commun"];
+        $nom_scientifique = $_POST["nom_scientifique"];
+        $nb_individus = $_POST["nb_individus"];
+        $zone_observation = $_POST["zone_observation"];
+        $milieu_naturel = $_POST["milieu_naturel"];
+        $nom_observateur = $_POST["nom_observateur"];
+        $date_observation = $_POST["date_observation"];
+
+        // Instanciation de la classe observation contenant les informations de l'observation
+        $observation = new Observation($nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation);
+
+        $observation->insert($db);
+
+        // ajoute dans le tableau de la session l'objet observation
+        $_SESSION["observations"][] = $observation;
+    }
+
+
+    /* if(isset($_GET['search'])){
+         $requete=$db->prepare("select * from client
+          where nom like ?  or
+          prenom like ?");
+         $valeur="%".$_GET['search']."%";
+         $requete->bindParam(1,$valeur);
+         $requete->bindParam(2, $valeur);
+         $requete->execute();
+
+         /*  $requete=$db->prepare("select * from client
+            where nom like :nom  or
+            prenom like :prenom");
+           $valeur="%".$_GET['search']."%";
+           $requete->bindParam("nom",$valeur);
+           $requete->bindParam("prenom", $valeur);
+           $requete->execute();
+     }
+     else $requete=$db->query("select * from client"); */
+
+    // Requete qui permet de recuperer toutes les lignes de la table observations
+    $requete=$db->query("select * from observations");
+    $observations=$requete->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,  "Observation");
+
+//    echo "<pre>";
+//    var_dump($observations[0]);
+//    echo "</pre>";
+
+//    //transforme chaque ligne en objet de la classe observation
+//    $requete->setFetchMode(PDO::FETCH_CLASS,'Observation');
+//
+//    // Recuperation de toutes les lignes
+//    $observations=$requete->fetchAll();
+
+    //boucle sur toutes lignes recupérées pour recuperer chaque observation
+    foreach ($observations as $observation) {
+
+        echo "<tr>
+    <td>".$observation->getIdObservation()."</td> 
+    <td>".$observation->getNomCommun()."</td> 
+    <td>".$observation->getNomScientifique()."</td> 
+    <td>".$observation->getNbIndividus()."</td>
+    <td>".$observation->getZoneObservation()."</td> 
+    <td>".$observation->getMilieuNaturel()."</td>
+    <td>".$observation->getNomObservateur()."</td>
+    <td>".$observation->getDateObservation()."</td>
+</tr>";
+    }
+    ?>
+
             </tbody>
         </table>
     </div>
