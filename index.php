@@ -1,26 +1,4 @@
 <?php
-// Chargement du fichier classe observation
-require('Observation.php');
-
-// Information de connexion pour la base de données
-$user="root";
-$pass="";
-$dbname="zarlor";
-$host="localhost";
-
-// Instanciation de la classe PDO pour la connexion avec la base de données, db devient l'objet PDO qui represente la connexion
-$db=new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
-
-// Lancement de la session pour recuperer les données existantes si session existe
-session_start();
-
-if(isset($_SESSION['observations'])){
-    $observations = $_SESSION['observations'];
-}else {
-    $observations=array();
-    $_SESSION['observations']=$observations;
-}
-
 
 ?>
 
@@ -102,6 +80,29 @@ if(isset($_SESSION['observations'])){
     <tbody>
 
     <?php
+    // Chargement du fichier classe observation
+    require('Observation.php');
+
+    // Information de connexion pour la base de données
+    $user="root";
+    $pass="";
+    $dbname="zarlor";
+    $host="localhost";
+
+    // Instanciation de la classe PDO pour la connexion avec la base de données, db devient l'objet PDO qui represente la connexion
+    $db=new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
+
+    // Lancement de la session pour recuperer les données existantes si session existe
+    //session_start();
+
+    if(isset($_SESSION['observations'])){
+        $observations = $_SESSION['observations'];
+    }else {
+        $observations=array();
+        $_SESSION['observations']=$observations;
+    }
+
+
 
 
     // recupere les infos apres la requete POST du formulaire
@@ -147,7 +148,7 @@ if(isset($_SESSION['observations'])){
     $requete=$db->query("select * from observations");
 
     //transforme chaque ligne en objet de la classe observation
-    $requete->setFetchMode(PDO::FETCH_CLASS,'Observation');
+//    $requete->setFetchMode(PDO::FETCH_ASSOC,'Observation');
 
     // Recuperation de toutes les lignes
     $observations=$requete->fetchAll();
@@ -156,7 +157,7 @@ if(isset($_SESSION['observations'])){
     foreach ($observations as $observation) {
 
         echo "<tr>
-    <td>".$observation->getId()."</td> 
+    <td>".$observation->getIdObservation()."</td> 
     <td>".$observation->getNomCommun()."</td> 
     <td>".$observation->getNomScientifique()."</td> 
     <td>".$observation->getNbIndividus()."</td>

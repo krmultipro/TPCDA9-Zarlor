@@ -2,7 +2,7 @@
 
 class Observation
 {
-    private $id;
+    private $id_observation;
 
     private $nom_commun;
 
@@ -30,7 +30,7 @@ class Observation
     }
     public function insert($db) {
         $sql= "INSERT INTO observations (nom_commun, nom_scientifique, nb_individus, zone_observation, milieu_naturel, nom_observateur, date_observation ) 
-              VALUES (:nom_commun, nom_scientifique, nb_individus, zone_observation, :milieu_naturel, :nom_observateur, :date_observation)";
+              VALUES (:nom_commun, :nom_scientifique, :nb_individus, :zone_observation, :milieu_naturel, :nom_observateur, :date_observation)";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':nom_commun', $this->nom_commun);
         $stmt->bindParam(':nom_scientifique', $this->nom_scientifique);
@@ -49,17 +49,17 @@ class Observation
     /**
      * @return mixed
      */
-    public function getId()
+    public function getIdObservation()
     {
-        return $this->id;
+        return $this->id_observation;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id_observation)
     {
-        $this->id = $id;
+        $this->id_observation = $id_observation;
     }
 
     /**
