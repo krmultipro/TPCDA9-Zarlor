@@ -11,6 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 
 </head>
 <body>
@@ -172,7 +174,12 @@
     foreach ($observations as $observation) {
 
         echo "<tr>
-    <td>".$observation->getIdObservation()."</td> 
+    <td>   <a href='index.php?edit=".$observation->getIdObservation()."' 
+      class='btn btn-success btn-sm me-2'
+      title='Modifier'>
+      <i class='bi bi-pencil-square'></i>
+   </a> 
+</td>
     <td>".$observation->getNomCommun()."</td> 
     <td>".$observation->getNomScientifique()."</td> 
     <td>".$observation->getNbIndividus()."</td>
@@ -181,11 +188,12 @@
     <td>".$observation->getNomObservateur()."</td>
     <td>".$observation->getDateObservation()."</td>
     <td> 
-      <a href='index.php?delete=".$observation->getIdObservation()."' 
-           class='btn btn-danger btn-sm'
-           onclick='return confirm(\"Voulez-vous vraiment supprimer cette observation ?\")'>
-           Supprimer
-        </a>
+     <a href='index.php?delete=".$observation->getIdObservation()."' 
+      class='btn btn-danger btn-sm'
+      title='Supprimer'
+      onclick='return confirm(\"Voulez-vous vraiment supprimer cette observation ?\")'>
+      <i class='bi bi-trash'></i>
+   </a>
     </td>
 </tr>";
     }
