@@ -81,7 +81,10 @@ class Observation
         $requete = $db->prepare("SELECT * FROM observations WHERE id_observation = :id");
         $requete->bindParam(':id', $id, PDO::PARAM_INT);
         $requete->execute();
+
         $result = $requete->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 
 

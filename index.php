@@ -57,9 +57,6 @@ $observationToEdit = null; //initialisation de l'edit
 //clique sur modifier
 if (isset($_GET['edit'])) {
     $observationToEdit = Observation::find($db, $_GET['edit']);//appelle la methode statique find et lui passe la connexion db et l'id
-    echo "<pre>";
-    var_dump($observationToEdit);
-    echo "</pre>";
 }
 // Si formulaire est en mode mise a jour
 if (isset($_POST['id_observation'])) {
@@ -204,7 +201,7 @@ if(isset($_GET['delete'])){
             <button type="submit"
                     name="<?= isset($observationToEdit) ? 'update' : 'ajouter' ?>"
                     class="btn <?= isset($observationToEdit) ? 'btn-success' : 'btn-primary' ?> mt-4 w-100">
-                <?= isset($observationToEdit) ? '💾 Mettre à jour' : '➕ Envoyer' ?>
+                <?= isset($observationToEdit) ? 'Mettre à jour' : 'Envoyer' ?>
             </button>
         </form>
     </div>
