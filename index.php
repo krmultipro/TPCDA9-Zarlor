@@ -1,14 +1,17 @@
 <?php
-
+// Chargement du fichier classe observation
 require('Observation.php');
+
+// Information de connexion pour la base de données
 $user="root";
 $pass="";
 $dbname="zarlor";
 $host="localhost";
 
+// Instanciation de la classe PDO pour la connexion avec la base de données, db devient l'objet PDO qui represente la connexion
 $db=new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
 
-
+// Lancement de la session pour recuperer les données existantes si session existe
 session_start();
 
 if(isset($_SESSION['observations'])){
@@ -22,7 +25,7 @@ if(isset($_SESSION['observations'])){
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,7 +41,7 @@ if(isset($_SESSION['observations'])){
     <input type="submit" value="Search" >
 </form>
 
-    <form class="card p-4 shadow-sm" action="" method="post">
+    <form class="card p-4 shadow-sm" action="index.php" method="post">
         <div class="mb-3">
             <label for="nom_commun" class="form-label">Nom commun</label>
             <input type="text" name="nom_commun" id="nom_commun" class="form-control" required
@@ -97,10 +100,11 @@ if(isset($_SESSION['observations'])){
     </thead>
 
     <tbody>
+
     <?php
 
 
-    // recupere les infos et instanciation de la variable voiture
+    // recupere les infos apres la requete POST du formulaire
     if (isset($_POST["nom_commun"], $_POST["nom_scientifique"], $_POST["nb_individus"], $_POST["zone_observation"], $_POST["milieu_naturel"],$_POST["nom_observateur"],$_POST["date_observation"] )) {
         $nom_commun = $_POST["nom_commun"];
         $nom_scientifique = $_POST["nom_scientifique"];
@@ -110,13 +114,14 @@ if(isset($_SESSION['observations'])){
         $nom_observateur = $_POST["nom_observateur"];
         $date_observation = $_POST["date_observation"];
 
+        // Instanciation de la classe observation contenant les informations de l'observation
         $observation = new Observation($nom_commun, $nom_scientifique, $nb_individus, $zone_observation, $milieu_naturel, $nom_observateur, $date_observation);
 
-        // ajoute dans le tableau de la session
+
+
+        // ajoute dans le tableau de la session l'objet observation
         $_SESSION["observations"][] = $observation;
     }
-
-
 
 
     /* if(isset($_GET['search'])){
@@ -138,13 +143,16 @@ if(isset($_SESSION['observations'])){
      }
      else $requete=$db->query("select * from client"); */
 
+    // Requete qui permet de recuperer toutes les lignes de la table observations
     $requete=$db->query("select * from observations");
 
+    //transforme chaque ligne en objet de la classe observation
     $requete->setFetchMode(PDO::FETCH_CLASS,'Observation');
 
+    // Recuperation de toutes les lignes
     $observations=$requete->fetchAll();
 
-
+    //boucle sur toutes lignes recupérées pour recuperer chaque observation
     foreach ($observations as $observation) {
 
         echo "<tr>
@@ -163,8 +171,6 @@ if(isset($_SESSION['observations'])){
     </tbody>
 
 </table>
-
-
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
