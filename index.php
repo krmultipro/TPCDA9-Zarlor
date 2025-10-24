@@ -27,7 +27,7 @@
     <div class="card shadow-sm mb-4 p-3">
         <form action="index.php" method="get" class="d-flex flex-column flex-sm-row align-items-center gap-2">
             <label for="search" class="form-label me-2 mb-0">🔍 Rechercher :</label>
-            <input type="text" name="search" id="search" class="form-control w-50" placeholder="Entrez un nom ou une zone">
+            <input type="text" name="search" id="search" class="form-control w-50" placeholder="Entrez un nom scientifique ou commun">
             <button type="submit" class="btn btn-success">Rechercher</button>
         </form>
     </div>
@@ -111,7 +111,12 @@
 
 
     // recupere les infos apres la requete POST du formulaire
-    if (isset($_POST["nom_commun"], $_POST["nom_scientifique"], $_POST["nb_individus"], $_POST["zone_observation"], $_POST["milieu_naturel"],$_POST["nom_observateur"],$_POST["date_observation"] )) {
+    if (isset(
+            $_POST["nom_commun"],
+            $_POST["nom_scientifique"],
+            $_POST["nb_individus"], $_POST["zone_observation"],
+            $_POST["milieu_naturel"],$_POST["nom_observateur"],
+            $_POST["date_observation"] )) {
         $nom_commun = $_POST["nom_commun"];
         $nom_scientifique = $_POST["nom_scientifique"];
         $nb_individus = $_POST["nb_individus"];
@@ -130,27 +135,17 @@
     }
 
 
-    /* if(isset($_GET['search'])){
-         $requete=$db->prepare("select * from client
-          where nom like ?  or
-          prenom like ?");
+     if(isset($_GET['search'])){
+         $requete=$db->prepare("select * from observations
+          where nom_commun like ?  or
+          nom_scientifique like ?");
          $valeur="%".$_GET['search']."%";
          $requete->bindParam(1,$valeur);
          $requete->bindParam(2, $valeur);
          $requete->execute();
-
-         /*  $requete=$db->prepare("select * from client
-            where nom like :nom  or
-            prenom like :prenom");
-           $valeur="%".$_GET['search']."%";
-           $requete->bindParam("nom",$valeur);
-           $requete->bindParam("prenom", $valeur);
-           $requete->execute();
      }
-     else $requete=$db->query("select * from client"); */
+     else $requete=$db->query("select * from observations");
 
-    // Requete qui permet de recuperer toutes les lignes de la table observations
-    $requete=$db->query("select * from observations");
     $observations=$requete->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,  "Observation");
 
 //    echo "<pre>";
