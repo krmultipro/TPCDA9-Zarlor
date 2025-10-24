@@ -41,25 +41,25 @@ if (isset(
     $_SESSION["observations"][] = $observation;
 }
 
-//READ
-if(isset($_GET['search'])){
-    $requete=$db->prepare("select * from observations
-          where nom_commun like ?  or
-          nom_scientifique like ?");
-    $valeur="%".$_GET['search']."%";
-    $requete->bindParam(1,$valeur);
-    $requete->bindParam(2, $valeur);
-    $requete->execute();
-}
-else $requete=$db->query("select * from observations");
 
-$observations=$requete->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,  "Observation");
+
+
+// ?
+if(isset($_SESSION['observations'])){
+    $observations = $_SESSION['observations'];
+}else {
+    $observations=array();
+    $_SESSION['observations']=$observations;
+}
 
 //UPDATE
 $observationToEdit = null; //initialisation de l'edit
 //clique sur modifier
 if (isset($_GET['edit'])) {
     $observationToEdit = Observation::find($db, $_GET['edit']);//appelle la methode statique find et lui passe la connexion db et l'id
+    echo "<pre>";
+    var_dump($observationToEdit);
+    echo "</pre>";
 }
 // Si formulaire est en mode mise a jour
 if (isset($_POST['id_observation'])) {
@@ -98,12 +98,7 @@ if(isset($_GET['delete'])){
 }
 
 
-if(isset($_SESSION['observations'])){
-    $observations = $_SESSION['observations'];
-}else {
-    $observations=array();
-    $_SESSION['observations']=$observations;
-}
+
 
 //    echo "<pre>";
 //    var_dump($observations[0]);
@@ -114,6 +109,7 @@ if(isset($_SESSION['observations'])){
 //
 //    // Recuperation de toutes les lignes
 //    $observations=$requete->fetchAll();
+
 
 
 
@@ -234,9 +230,19 @@ if(isset($_SESSION['observations'])){
 
 
     <?php
+    //READ
+    if(isset($_GET['search'])){
+        $requete=$db->prepare("select * from observations
+          where nom_commun like ?  or
+          nom_scientifique like ?");
+        $valeur="%".$_GET['search']."%";
+        $requete->bindParam(1,$valeur);
+        $requete->bindParam(2, $valeur);
+        $requete->execute();
+    }
+    else $requete=$db->query("select * from observations");
 
-
-
+    $observations=$requete->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE,  "Observation");
 
     //boucle sur toutes lignes recupérées pour recuperer chaque observation
     foreach ($observations as $observation) {
